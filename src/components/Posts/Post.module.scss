@@ -1,0 +1,22 @@
+.postsList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px
+}
+
+.postsItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.postTitle {
+    font-size: 16px;
+
+    margin-top: 5px;
+}
+
+.postDate {
+    font-size: 12px;
+
+    margin-top: 5px;
+}
