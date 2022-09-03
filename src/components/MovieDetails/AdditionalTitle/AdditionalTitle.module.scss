@@ -1,0 +1,32 @@
+.additionalTitle {
+    position: relative;
+    padding-left: 15px;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 40px;
+
+    &::before {
+        content: "";
+        margin-left: -15px;
+        position: absolute;
+        height: 100%;
+        width: 4px;
+        background: #f5c518;
+    }
+
+    &:hover,
+    :focus {
+        color: #f5c518;
+    }
+}
+
+.additionalArrow {
+    margin-left: 10px;
+    fill: currentColor;
+
+    &:hover,
+    :focus {
+        fill: #f5c518;
+    }
+}

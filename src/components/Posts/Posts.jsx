@@ -1,75 +1,34 @@
 import styles from "./Post.module.scss";
-
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import plugImg from "../../img/plugIMG.jpg";
+import { Link, useLocation } from "react-router-dom";
 import Moment from "react-moment";
+import { nanoid } from "nanoid";
+import PropTypes from "prop-types";
 
-import { fetchPopularMovie } from "../../service/api";
-
-export default function Posts() {
-  const [movies, setMovies] = useState([]);
-  // const [page, setPage] = useState(1);
-
-  // const targetScroll = document.querySelector(".target-element");
-  // const observer = new IntersectionObserver(
-  //   (entries, observer) => {
-  //     if (entries[0].isIntersecting) {
-  //       setPage(page + 1);
-  //     }
-  //   },
-  //   {
-  //     root: null,
-  //     rootMargin: "400px",
-  //     threshold: 1,
-  //   }
-  // );
-  // observer.observe(targetScroll);
-
-  useEffect(() => {
-    fetchMovies();
-
-    async function fetchMovies() {
-      try {
-        const data = await fetchPopularMovie();
-        setMovies([...data.results]);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, []);
-
-  // useEffect(() => {
-  //   loadMoreData();
-
-  //   async function loadMoreData() {
-  //     try {
-  //       const data = await fetchPopularMovie(page);
-
-  //       // if (data.results.length === 0) {
-  //       //   console.log("unobserve");
-  //       //   observer.unobserve(targetScroll);
-  //       //   return;
-  //       // }
-
-  //       setMovies([...movies, ...data.results]);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [page]);
+export default function Posts({ movies }) {
+  const location = useLocation();
 
   return (
     <ul className={styles.postsList}>
       {movies &&
         movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} className={styles.postsItem}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                alt=""
-                width="172"
-              />
+          <li key={nanoid()}>
+            <Link
+              className={styles.postsItem}
+              to={`/movies/${movie.id}`}
+              state={{ from: location }}
+            >
+              {movie.poster_path !== null ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  alt=""
+                  width="172"
+                  height="258"
+                />
+              ) : (
+                <img src={plugImg} alt="" width="172" height="258"></img>
+              )}
+
               <h2 className={styles.postTitle}>{movie.title}</h2>
               <Moment className={styles.postDate} format="YYYY">
                 {movie.release_date}
@@ -80,3 +39,13 @@ export default function Posts() {
     </ul>
   );
 }
+
+Posts.propType = {
+  movie: PropTypes.arrayOf(
+    PropTypes.shape({
+      poster_path: PropTypes.string,
+      title: PropTypes.string,
+      release_date: PropTypes.string,
+    })
+  ),
+};

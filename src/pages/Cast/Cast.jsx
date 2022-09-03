@@ -1,4 +1,5 @@
 import styles from "./Cast.module.scss";
+import plugImg from "../../img/plugIMG.jpg";
 
 import { fetchGetMovieCredits } from "../../service/api";
 
@@ -15,8 +16,6 @@ export default function Cast() {
     async function fetchCredits() {
       try {
         const data = await fetchGetMovieCredits(movieId);
-        console.log(data);
-
         setCredits(data.cast);
       } catch (error) {
         console.log(error);
@@ -32,12 +31,14 @@ export default function Cast() {
           credits.map(({ id, name, character, profile_path }) => (
             <li key={id} className={styles.creditItem}>
               <div className={styles.imgOverlay}>
-                {profile_path !== null && (
+                {profile_path !== null ? (
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
                     alt={name}
                     className={styles.img}
                   />
+                ) : (
+                  <img src={plugImg} alt={name} className={styles.img} />
                 )}
               </div>
               <div>

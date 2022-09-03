@@ -1,10 +1,11 @@
 import styles from "./SearchBox.module.scss";
+import PropTypes from "prop-types";
 
-export default function SearchBox() {
+export default function SearchBox({ getSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const query = e.currentTarget.elements.search.value;
-    console.log(query);
+    getSearch(query);
 
     e.currentTarget.reset();
   };
@@ -28,3 +29,7 @@ export default function SearchBox() {
     </div>
   );
 }
+
+SearchBox.propType = {
+  getSearch: PropTypes.func,
+};

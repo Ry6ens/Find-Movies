@@ -1,7 +1,5 @@
 // import styles from "./YoutubeEmbed.module.scss";
-
-import { fetchGetMovieVideo } from "../../service/api";
-
+import { fetchGetMovieVideo } from "../../../service/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 

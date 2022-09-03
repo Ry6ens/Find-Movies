@@ -23,7 +23,6 @@ export default function Reviews() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
-  console.log(reviews);
 
   return (
     <>
