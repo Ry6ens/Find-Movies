@@ -23,8 +23,6 @@ export default function NotFoundPage() {
     $("#boxGhostEyes").css({
       transform: "translate(" + xAxis + "%,-" + yAxis + "%)",
     });
-
-    //console.log('X: ' + xAxis);
   });
 
   return (
